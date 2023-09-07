@@ -1,0 +1,35 @@
+// Scss Document
+
+//width
+$width-inner: 1280px;
+$width-inner-sp: 100%;
+
+//space
+$space-sp: 4%;
+
+//color
+$color-black: #333;
+
+//break points
+$sp-max-width: 750px;
+$tb-max-width: 820px;
+$pc-min-width: 1981px;
+
+//Media Queries
+@mixin mq-sp($max: $sp-max-width) {
+    @media only screen and (max-width: #{$max}) {
+        @content;
+    }
+}
+
+@mixin mq-tb($max: $tb-max-width) {
+    @media only screen and (max-width: #{$max}) {
+        @content;
+    }
+}
+
+@mixin mq-pc($min: $pc-min-width) {
+    @media only screen and (min-width: #{$min}) {
+        @content;
+    }
+}

@@ -1,0 +1,408 @@
+//----素材調整用　いいのあったら使う----//
+
+//----ネオンボタン----//
+@import 'https://fonts.googleapis.com/css?family=Dosis';
+
+/* VARS */
+$main-font-size: 10px;
+
+$bg-color: #1A1A1B;
+$red: #cb3535;
+$white: #fcfcfc;
+$red-neon-0: rgba(204, 0, 0, 1);
+$red-neon-1: rgba(204, 0, 0, 0.3);
+$red-neon-2: rgba(255, 0, 0, 0.3);
+$red-neon-3: rgba(204, 0, 0, 0.3);
+$blue: #68939c;
+
+/* MIXINS */
+// Font sizing
+@mixin font-size($sizeValue) {
+	$remValue: $sizeValue;
+	$pxValue: ($sizeValue * 10);
+	font-size: $pxValue + px;
+	line-height: ($sizeValue * 1.5 * 10) + px;
+	font-size: $remValue + rem;
+	line-height: $sizeValue * 1.5 + rem;
+}
+
+@mixin x-rem ($property, $value) {
+	#{$property}: $value * $main-font-size;
+	#{$property}: #{$value}rem;
+}
+
+@mixin btn($color, $bg:none) {
+	display: inline-block;
+	margin-bottom: 0;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-color: transparent;
+	background-image: $bg;
+	background-repeat: no-repeat;
+	background-position: 18px center;
+	border: 1px solid $red;
+	white-space: nowrap;
+	outline: none;
+
+	color: $color;
+	@include font-size(1.6);
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 2px;
+	font-weight: 300;
+	width: auto;
+
+	white-space: pre-wrap;
+
+	@if $bg==none {
+		padding: 10px 1.8em;
+	}
+
+	@else {
+		padding: 10px 18px 10px 50px;
+	}
+
+	transition: all 0.3s ease;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+
+	@media (min-width: 480px) {
+		width: auto;
+	}
+
+
+	&:hover {
+
+		animation: intermittente 0.01s infinite alternate;
+		box-shadow: 0px 0px 35px $red-neon-1,
+			0 0 11px $red-neon-1,
+			0 0 2px $red-neon-2,
+			0 0 1px $red-neon-3,
+			0 0px 17px $red-neon-1,
+			inset 0px 0 17px $red-neon-3,
+			inset 0px 0 30px $red-neon-3;
+	}
+
+}
+
+/* ANIMATIONS */
+@keyframes intermittente {
+	75% {
+		opacity: 0.7;
+	}
+}
+
+.btn {
+	@include btn($blue);
+	font-family: 'Dosis', sans-serif;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%, -50%, 0);
+}
+
+//----一覧カード----//
+
+.skill-card {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	padding: 20px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+	cursor: pointer;
+
+	&:hover {
+		box-shadow: 0 14px 28px rgba(0, 0, 0, .25),
+			0 10px 10px rgba(0, 0, 0, .22);
+
+		&__header {
+			height: 40px;
+		}
+
+		&__icon {
+			transform: translateX(-50%) translateY(-50%) scale(3);
+		}
+
+		&__body {
+			height: 170px;
+		}
+
+		&__knowledge {
+			li {
+				transform: translateX(0);
+				transition-timing-function: cubic-bezier(0, 1.5, 1, 1);
+				transition-duration: .5s;
+
+				@for $i from 1 through 6 {
+					&:nth-child(#{$i}) {
+						transition-delay: $i * .25s;
+					}
+				}
+			}
+		}
+	}
+
+	&__header {
+		position: relative;
+		background-color: lighten(#E95A28, 5);
+		height: 170px;
+		margin: -20px -20px 20px -20px;
+		transition: height .5s;
+		overflow: hidden
+	}
+
+	&__icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+		display: block;
+		width: 128px;
+		height: 128px;
+		transition: transform .5s;
+	}
+
+	&__body {
+		height: 40px;
+		transition: height .5s;
+		overflow: hidden;
+	}
+
+	&__title {
+		font-size: 1.4em;
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+
+	&__duration {
+		color: #9E9E9E;
+		font-style: italic;
+	}
+
+	&__knowledge {
+		margin-top: 10px;
+		color: #424242;
+
+		li {
+			margin-top: 5px;
+			transition-duration: 0;
+			transition-delay: .5s;
+			transform: translateX(-100%);
+		}
+	}
+}
+
+
+@-webkit-keyframes animate {
+	35% {
+		filter: none
+	}
+
+	45% {
+		filter: url(#filterDistortFirst)
+	}
+
+	48% {
+		filter: url(#distort)
+	}
+
+	52% {
+		filter: url(#filterDistortSecond)
+	}
+
+	56% {
+		filter: none
+	}
+
+	90% {
+		filter: url(#distort)
+	}
+
+	92% {
+		filter: url(#filterDistortFirst)
+	}
+
+	97% {
+		filter: url(#filterDistortSecond)
+	}
+}
+
+@keyframes animate {
+	35% {
+		filter: none
+	}
+
+	45% {
+		filter: url(#filterDistortFirst)
+	}
+
+	48% {
+		filter: url(#distort)
+	}
+
+	52% {
+		filter: url(#filterDistortSecond)
+	}
+
+	56% {
+		filter: none
+	}
+
+	90% {
+		filter: url(#distort)
+	}
+
+	92% {
+		filter: url(#filterDistortFirst)
+	}
+
+	97% {
+		filter: url(#filterDistortSecond)
+	}
+}
+
+@-webkit-keyframes animateLarge {
+	35% {
+		filter: none;
+		transform: skew(0)
+	}
+
+	45% {
+		filter: url(#filterDistortFirst);
+		transform: skew(75deg) rotate(5deg)
+	}
+
+	48% {
+		filter: url(#distort);
+		transform: skew(0) rotate(0)
+	}
+
+	52% {
+		filter: url(#filterDistortSecond);
+		transform: skew(0)
+	}
+
+	56% {
+		filter: none;
+		transform: skew(0)
+	}
+
+	90% {
+		filter: url(#distort);
+		transform: skew(-10deg)
+	}
+
+	92% {
+		filter: url(#filterDistortFirst);
+		transform: skew(-5deg)
+	}
+
+	97% {
+		filter: url(#filterDistortSecond);
+		transform: skew(0)
+	}
+}
+
+@keyframes animateLarge {
+	35% {
+		filter: none;
+		transform: skew(0)
+	}
+
+	45% {
+		filter: url(#filterDistortFirst);
+		transform: skew(75deg) rotate(5deg)
+	}
+
+	48% {
+		filter: url(#distort);
+		transform: skew(0) rotate(0)
+	}
+
+	52% {
+		filter: url(#filterDistortSecond);
+		transform: skew(0)
+	}
+
+	56% {
+		filter: none;
+		transform: skew(0)
+	}
+
+	90% {
+		filter: url(#distort);
+		transform: skew(-10deg)
+	}
+
+	92% {
+		filter: url(#filterDistortFirst);
+		transform: skew(-5deg)
+	}
+
+	97% {
+		filter: url(#filterDistortSecond);
+		transform: skew(0)
+	}
+}
+
+.LpGlitchText {
+	-webkit-animation: animate 3s .2s infinite;
+	-webkit-animation-timing-function: step-end;
+	animation: animate 3s .2s infinite;
+	animation-timing-function: step-end;
+	color: #fff;
+	position: relative
+}
+
+.LpGlitchText:after {
+	color: #fff;
+	/* content:attr(data-duplicate); */
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%
+}
+
+.LpGlitchText.--Large {
+	-webkit-animation: animateLarge 4s .8s infinite;
+	-webkit-animation-timing-function: step-end;
+	animation: animateLarge 4s .8s infinite;
+	animation-timing-function: step-end;
+	perspective: 1000
+}
+
+//フェード関連
+
+.fade_trigger,
+.fade_up_trigger {
+	opacity: 0;
+}
+
+.fade {
+	animation: fade .5s ease-out forwards
+}
+
+@keyframes fade {
+	100% {
+		opacity: 1
+	}
+}
+
+.fade_up {
+	animation: fadeUp 1s .5s ease-out forwards
+}
+
+@keyframes fadeUp {
+	0% {
+		transform: translateY(0.5rem)
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0)
+	}
+}

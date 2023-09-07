@@ -1,0 +1,78 @@
+// Scss Document
+@use './mixin';
+/*---header----*/
+
+nav {
+	position: fixed;
+	top: 30px;
+	right: 25px;
+	z-index: 999;
+
+	ul {
+		display: flex;
+		color: #fff;
+		justify-content: space-between;
+		text-shadow: 1px 1px 0 #333,
+			-1px -1px 0 #333,
+			-1px 1px 0 #333,
+			1px -1px 0 #333,
+			0px 1px 0 #333,
+			0-1px 0 #333,
+			-1px 0 0 #333,
+			1px 0 0 #333;
+
+		li {
+			font-size: 2.4rem;
+			padding: 0 1.5rem;
+
+			&:first-of-type {
+				padding-left: 0;
+			}
+
+			&:last-of-type {
+				padding-right: 0;
+			}
+		}
+	}
+}
+
+.contents_head {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: 5vh 20vh 5vh;
+	width: 100%;
+	background: #fff;
+	padding: 0;
+
+	@include mixin.mq-sp {
+		grid-template-rows: 5vh 10vh 2vh;
+	}
+
+	&-ttl {
+		grid-column: 10 / span 3;
+		grid-row: 2;
+		width: fit-content;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		justify-content: center;
+
+		h1 {
+			width: fit-content;
+			color: #000;
+			font-size: 6rem;
+		}
+
+		span {
+			display: block;
+			width: fit-content;
+			background-color: #000;
+			color: #fff;
+			padding: 0 .5rem;
+		}
+
+		@include mixin.mq-sp {
+			grid-column: 8 / span 3;
+		}
+	}
+}
